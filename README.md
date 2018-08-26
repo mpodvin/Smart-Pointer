@@ -1,5 +1,6 @@
 # Smart-Pointer
 Smart Pointer with reference counting and small memory consumption penalty (8 or 12 bytes in 32bits).
+Be Smart!
 
 You can write this :
 
