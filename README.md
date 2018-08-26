@@ -1,5 +1,5 @@
 # Smart-Pointer
-Smart Pointer with reference counting...
+Smart Pointer with reference counting and small memory consumption penalty...
 
 You can write this :
 
@@ -9,10 +9,12 @@ var
   sp, sp4:Smart<TStringList>;
 begin
   h := Smart.Create<TList>();
+  h.Add(...);
   ...
-  sp4 := Smart.Create(TList.Create);
+  sp4 := Smart.Create(TStringList.Create);
+  sp4.LoadFromFile(...);
   ...
-  sp := Smart.Create<TStringList>();
+  sp := Smart.Create<TStringList>(TStringList.Create);
   ...
   //use it!
 end;
