@@ -7,6 +7,7 @@ You can write this :
 var
   h:Smart<TList>;
   sp, sp4:Smart<TStringList>;
+  slist:BeSmart<TStringList>;
 begin
   h := Smart.Create<TList>();
   h.Add(...);
@@ -15,6 +16,8 @@ begin
   sp4.LoadFromFile(...);
   ...
   sp := Smart.Create<TStringList>(TStringList.Create);
+  ...
+  slist := TStringList.Create;
   ...
   //use it!
 end;
