@@ -1,5 +1,5 @@
 # Smart-Pointer
-Smart Pointer with reference counting and small memory consumption penalty...
+Smart Pointer with reference counting and small memory consumption penalty.
 
 You can write this :
 
