@@ -31,7 +31,7 @@ interface
 
 // Uses Monitor hidden field to store refcount, so not compatible with monitor use
 // (but Monitor is buggy, so no great loss) > Eric Grange
-{$DEFINE USE_TMONITOR}
+{$DEFINE USE_MONITOR}
 
 type
   Smart<T> = reference to function:T;
@@ -57,7 +57,7 @@ type
   TSmartRec = packed record // 8 or 12 bytes size
     VMT:Pointer;
     Instance:TObject;
-{$IFNDEF USE_TMONITOR}
+{$IFNDEF USE_MONITOR}
     RefCount:Integer;
 {$ENDIF}
   end;
@@ -68,7 +68,7 @@ function _AddRef(Self:PSmartRec):Integer;stdcall;
 var
   Ptr:PInteger;
 begin
-{$IFDEF USE_TMONITOR}
+{$IFDEF USE_MONITOR}
   Ptr := PInteger(NativeInt(Self^.Instance) + Self^.Instance.InstanceSize - hfFieldSize + hfMonitorOffset);
 {$ELSE}
   Ptr := @(Self^.RefCount);
@@ -80,7 +80,7 @@ function _Release(Self:PSmartRec):Integer;stdcall;
 var
   Ptr:PInteger;
 begin
-{$IFDEF USE_TMONITOR}
+{$IFDEF USE_MONITOR}
   Ptr := PInteger(NativeInt(Self^.Instance) + Self^.Instance.InstanceSize - hfFieldSize + hfMonitorOffset);
 {$ELSE}
   Ptr := @(AObj^.RefCount);
@@ -116,7 +116,7 @@ begin
   begin
     VMT      := @PSEUDO_VMT;
     Instance := AObject;
-{$IFNDEF USE_TMONITOR}
+{$IFNDEF USE_MONITOR}
     RefCount := 0; // because, by default, hfMonitor field value = 0
 {$ENDIF}
   end;
